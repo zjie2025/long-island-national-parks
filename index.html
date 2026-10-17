@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>长岛国家公园旅游指南</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --bg:#f5f1e8; --bg2:#efe9db; --surface:#fffdf8; --surface2:#f0ead9;
+        --ink:#22302a; --ink2:#4c5a52; --ink3:#78847c;
+        --pine:#1d4a38; --pine2:#2c6a50; --moss:#5d7d4f;
+        --rust:#b0512a; --rust-bg:#f7e8de;
+        --gold:#c08a1e; --gold-bg:#f6ecd2;
+        --line:#ddd5c2; --line2:#cbc1a9;
+        --ok:#2c6a50; --ok-bg:#e2eee5;
+        --mid:#97700f; --mid-bg:#f6ecd2;
+        --no:#a03d2a; --no-bg:#f7e3dc;
+        --shadow:0 2px 10px rgba(34,48,42,.08),0 10px 30px rgba(34,48,42,.06);
+        --radius:14px;
+      }
+      @media (prefers-color-scheme: dark){
+        :root{
+          --bg:#101614; --bg2:#0c100e; --surface:#1a221e; --surface2:#222b26;
+          --ink:#e9e7dc; --ink2:#b9beb2; --ink3:#8b948a;
+          --pine:#7fb69a; --pine2:#9ccbb2; --moss:#9db98a;
+          --rust:#e0956a; --rust-bg:#33231b;
+          --gold:#dfb45c; --gold-bg:#2f2a1a;
+          --line:#2e3833; --line2:#3d4a43;
+          --ok:#8fc7a8; --ok-bg:#1d2f26;
+          --mid:#dfc06a; --mid-bg:#2f2a1a;
+          --no:#e59a85; --no-bg:#332019;
+          --shadow:0 2px 10px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3);
+        }
+      }
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{margin:0;background:var(--bg);color:var(--ink);
+        font-family:"Noto Sans SC",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+        font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+      img{display:block;max-width:100%}
+      a{color:var(--pine2)}
+      .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+      h1,h2,h3{font-family:"Noto Serif SC",serif;line-height:1.3}
+
+      /* ---------- hero ---------- */
+      .hero{position:relative;color:#fff;overflow:hidden;background:#0e2019}
+      .hero img{width:100%;height:520px;object-fit:cover;object-position:center 62%;opacity:.92}
+      .hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,19,.38) 0%,rgba(10,26,19,.06) 40%,rgba(10,26,19,.78) 100%)}
+      .hero .inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:34px 0 30px}
+      .hero .en{font-size:13px;letter-spacing:.34em;text-transform:uppercase;opacity:.85;margin:0 0 8px;font-weight:500}
+      .hero h1{font-size:clamp(34px,6vw,56px);margin:0 0 10px;font-weight:900;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+      .hero .sub{font-size:clamp(15px,2.4vw,18px);max-width:640px;margin:0 0 18px;opacity:.95}
+      .hero .facts{display:flex;flex-wrap:wrap;gap:8px}
+      .hero .facts span{background:rgba(13,32,24,.62);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(4px);
+        padding:5px 13px;border-radius:999px;font-size:13.5px;font-weight:500}
+      .hero .facts b{color:#f3cf7d;font-weight:700}
+
+      /* ---------- sticky nav ---------- */
+      .topnav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);
+        overflow-x:auto;scrollbar-width:none}
+      .topnav::-webkit-scrollbar{display:none}
+      .topnav .row{display:flex;gap:4px;padding:9px 20px;max-width:1120px;margin:0 auto;white-space:nowrap}
+      .topnav a{color:var(--ink2);text-decoration:none;font-size:14px;font-weight:500;padding:5px 11px;border-radius:999px}
+      .topnav a:hover{background:var(--surface2);color:var(--ink)}
+
+      section{padding:44px 0 8px}
+      .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+      .sec-head .no{font-family:"Noto Serif SC",serif;font-size:15px;color:var(--rust);font-weight:700;letter-spacing:.1em}
+      .sec-head h2{font-size:clamp(24px,4vw,32px);margin:0;font-weight:900}
+      .sec-lede{color:var(--ink2);max-width:760px;margin:0 0 22px}
+
+      /* ---------- filter ---------- */
+      .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+      .filters button{font:inherit;font-size:14.5px;font-weight:500;cursor:pointer;
+        border:1.5px solid var(--line2);background:var(--surface);color:var(--ink2);
+        padding:7px 16px;border-radius:999px;transition:all .15s}
+      .filters button:hover{border-color:var(--pine2);color:var(--ink)}
+      .filters button.on{background:var(--pine);border-color:var(--pine);color:#fff}
+      @media (prefers-color-scheme: dark){.filters button.on{background:var(--pine2);border-color:var(--pine2);color:#12211a}}
+      .filter-note{font-size:13.5px;color:var(--ink3);margin:-8px 0 18px;min-height:20px}
+
+      /* ---------- overview cards ---------- */
+      .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+      .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+        box-shadow:var(--shadow);display:flex;flex-direction:column}
+      .card.hide{display:none}
+      .card .ph{position:relative}
+      .card .ph img{width:100%;height:196px;object-fit:cover}
+      .card .county{position:absolute;left:12px;top:12px;background:rgba(13,32,24,.72);color:#fff;
+        font-size:12.5px;padding:3px 10px;border-radius:999px;backdrop-filter:blur(3px)}
+      .card .pick{position:absolute;right:12px;top:12px;background:var(--gold);color:#241a02;
+        font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px}
+      .card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+      .card h3{margin:0;font-size:20px;font-weight:900}
+      .card h3 .en{display:block;font-family:"Noto Sans SC",sans-serif;font-size:12.5px;font-weight:500;color:var(--ink3);letter-spacing:.04em;margin-top:2px}
+      .card .desc{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.65}
+      .card .foot{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+      .btn{display:inline-block;text-decoration:none;font-size:14px;font-weight:700;padding:7px 15px;border-radius:9px}
+      .btn-main{background:var(--pine);color:#fff}
+      @media (prefers-color-scheme: dark){.btn-main{background:var(--pine2);color:#12211a}}
+      .btn-ghost{border:1.5px solid var(--line2);color:var(--ink)}
+
+      /* rating stars */
+      .rate{display:flex;align-items:center;gap:8px}
+      .stars{position:relative;display:inline-block;font-size:16px;line-height:1;color:#cfc7ae;letter-spacing:2px}
+      .stars .fill{position:absolute;left:0;top:0;overflow:hidden;color:var(--gold);white-space:nowrap}
+      .rate .score{font-weight:900;font-size:16px}
+      .rate .cnt{color:var(--ink3);font-size:13px}
+
+      /* verdict chips */
+      .verdicts{display:flex;flex-wrap:wrap;gap:6px}
+      .v{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;padding:3px 10px;border-radius:7px}
+      .v svg{width:14px;height:14px;flex:none}
+      .v.ok{background:var(--ok-bg);color:var(--ok)}
+      .v.mid{background:var(--mid-bg);color:var(--mid)}
+      .v.no{background:var(--no-bg);color:var(--no)}
+
+      /* ---------- compare table ---------- */
+      .cmp{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);
+        border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:14.5px}
+      .cmp th,.cmp td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+      .cmp thead th{background:var(--pine);color:#fff;font-weight:700;border-bottom:none}
+      @media (prefers-color-scheme: dark){.cmp thead th{background:#234434;color:#e9e7dc}}
+      .cmp tbody tr:last-child td{border-bottom:none}
+      .cmp td:first-child{font-weight:700;white-space:nowrap}
+      .cmp .s-ok{color:var(--ok);font-weight:700}
+      .cmp .s-mid{color:var(--mid);font-weight:700}
+      .cmp .s-no{color:var(--no);font-weight:700}
+      @media (max-width:760px){
+        .cmp,.cmp tbody,.cmp tr,.cmp td{display:block;width:100%}
+        .cmp thead{display:none}
+        .cmp tr{border-bottom:2px solid var(--line2);padding:8px 0}
+        .cmp td{border-bottom:none;padding:3px 14px}
+        .cmp td::before{content:attr(data-l);display:inline-block;width:64px;color:var(--ink3);font-size:12.5px;font-weight:500}
+        .cmp td:first-child{font-size:16.5px;padding-top:8px}
+        .cmp td:first-child::before{display:none}
+      }
+
+      /* ---------- detail sections ---------- */
+      .park{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:34px}
+      .park .banner{position:relative}
+      .park .banner img{width:100%;height:340px;object-fit:cover}
+      .park .banner .cap{position:absolute;left:0;right:0;bottom:0;padding:38px 26px 16px;color:#fff;
+        background:linear-gradient(180deg,transparent,rgba(9,22,16,.82))}
+      .park .banner .cap .en{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;opacity:.85;margin:0}
+      .park .banner .cap h3{font-size:clamp(25px,4.4vw,36px);margin:2px 0 4px;font-weight:900;text-shadow:0 2px 10px rgba(0,0,0,.4)}
+      .park .banner .cap .meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;opacity:.95}
+      .park .content{padding:22px 26px 26px}
+      .park .lead{font-size:16.5px;margin:0 0 14px}
+      .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+      .duo figure{margin:0}
+      .duo img{width:100%;height:230px;object-fit:cover;border-radius:10px}
+      .duo figcaption,.figcap{font-size:13px;color:var(--ink3);margin-top:6px}
+      .cols{display:grid;grid-template-columns:1fr 1fr;gap:8px 34px}
+      @media (max-width:760px){.cols,.duo{grid-template-columns:1fr}.park .content{padding:18px}.park .banner img{height:250px}}
+      .block{margin:18px 0 4px}
+      .block h4{font-family:"Noto Serif SC",serif;font-size:17.5px;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+      .block h4 .dot{width:8px;height:8px;border-radius:50%;background:var(--rust);flex:none}
+      .block p{margin:0 0 8px;color:var(--ink2)}
+      .block ul{margin:4px 0 10px;padding-left:20px;color:var(--ink2)}
+      .block li{margin-bottom:5px}
+      .block b,.park p b{color:var(--ink)}
+      .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:16px 0 4px}
+      .fact{background:var(--surface2);border-radius:10px;padding:11px 14px}
+      .fact .k{font-size:12.5px;color:var(--ink3);font-weight:500;margin-bottom:2px}
+      .fact .val{font-size:14.5px;font-weight:700;line-height:1.55}
+      .fact .val small{font-weight:400;color:var(--ink2)}
+      .warn{background:var(--rust-bg);border-radius:10px;padding:12px 16px;margin:14px 0 2px;font-size:14.5px}
+      .warn b{color:var(--rust)}
+      .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+      .links a{text-decoration:none;font-size:14px;font-weight:700;padding:8px 16px;border-radius:9px}
+      .links .nav-btn{background:var(--rust);color:#fff}
+      .links .site-btn{border:1.5px solid var(--line2);color:var(--ink)}
+
+      /* ---------- topic lists ---------- */
+      .rank{display:flex;flex-direction:column;gap:12px}
+      .rank .item{display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow)}
+      .rank .num{font-family:"Noto Serif SC",serif;font-size:30px;font-weight:900;color:var(--rust);line-height:1.1;flex:none;width:44px;text-align:center}
+      .rank h3{margin:0 0 4px;font-size:18px}
+      .rank p{margin:0;color:var(--ink2);font-size:14.5px}
+      .note-box{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:10px;padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow)}
+      .note-box h3{margin:0 0 4px;font-size:17px}
+      .note-box p{margin:0;color:var(--ink2);font-size:14.5px}
+
+      footer{margin-top:52px;background:#14231d;color:#cfd8d0;padding:34px 0 40px}
+      @media (prefers-color-scheme: dark){footer{background:#0a0f0d}}
+      footer h3{color:#fff;margin:0 0 10px;font-size:18px}
+      footer p{font-size:13.5px;line-height:1.8;margin:0 0 10px;color:#aebbae}
+      footer a{color:#9ccbb2}
+      footer .srcs{columns:2;column-gap:34px}
+      @media (max-width:640px){footer .srcs{columns:1}}
+      footer .srcs a{display:block;margin-bottom:5px;text-decoration:none;font-size:13.5px}
+      footer .srcs a:hover{text-decoration:underline}
+    </style>
+  </head>
+  <body>
+
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <img src="images/img0.jpg" alt="火岛沉没森林的木栈道，两旁是三百年的原始滨海森林" />
+      <div class="scrim"></div>
+      <div class="inner">
+        <div class="wrap" style="width:100%">
+          <p class="en">Long Island · National Park Service</p>
+          <h1>长岛国家公园旅游指南</h1>
+          <p class="sub">长岛一共有 <b>3 个国家公园管理局（NPS）单位、7 个主要目的地</b>（其中 Gateway 门户国家休闲区一个单位就含 5 处）——从要坐渡轮去的火岛海滩，到罗斯福总统的故居，再到纽约市里的观鸟天堂。哪里能徒步、哪里能骑车、哪里能烤肉，这一篇讲全。</p>
+          <div class="facts">
+            <span>入园门票：<b>全部免费</b>（个别项目另收费）</span>
+            <span>烧烤首选：<b>卡纳西码头</b>（免费炉子）</span>
+            <span>骑行首选：<b>弗洛伊德·贝内特机场</b></span>
+            <span>评分最高：<b>萨加莫尔山 4.9 分</b></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="topnav" aria-label="页面导航">
+      <div class="row">
+        <a href="#pick">快速挑选</a>
+        <a href="#compare">总览对比</a>
+        <a href="#fire-island">火岛</a>
+        <a href="#sagamore">萨加莫尔山</a>
+        <a href="#jamaica-bay">牙买加湾保护区</a>
+        <a href="#floyd-bennett">老机场</a>
+        <a href="#canarsie">卡纳西码头</a>
+        <a href="#riis">雅各布·里斯</a>
+        <a href="#tilden">蒂尔登堡</a>
+        <a href="#bbq">烧烤专题</a>
+        <a href="#confuse">别跑错</a>
+      </div>
+    </nav>
+
+    <main class="wrap">
+
+      <!-- ================= FILTER / OVERVIEW ================= -->
+      <section id="pick">
+        <div class="sec-head"><span class="no">01</span><h2>先按玩法挑地方</h2></div>
+        <p class="sec-lede">点一个玩法，下面的卡片只留下适合的去处。推荐度来自谷歌评分（满分 5 分）；每张卡都标了徒步、骑行、烧烤三项结论——绿色可以、黄色受限、红色不行。</p>
+        <div class="filters" role="group" aria-label="按玩法筛选">
+          <button class="on" data-f="all">全部 7 个</button>
+          <button data-f="hike">想徒步</button>
+          <button data-f="bike">想骑行</button>
+          <button data-f="bbq">想烤肉</button>
+          <button data-f="swim">想下海游泳</button>
+          <button data-f="bird">想观鸟</button>
+          <button data-f="history">历史人文</button>
+          <button data-f="transit">公共交通方便</button>
+        </div>
+        <p class="filter-note" id="filterNote"></p>
+
+        <div class="grid" id="cardGrid">
+          <!-- Fire Island -->
+          <article class="card" data-tags="hike bike bbq swim bird">
+            <div class="ph"><img src="images/img1.jpg" alt="火岛灯塔，黑白塔身与红顶守塔人小屋" loading="lazy" />
+              <span class="county">萨福克县 · Suffolk</span><span class="pick">海滩天花板</span></div>
+            <div class="body">
+              <h3>火岛国家海岸<span class="en">Fire Island National Seashore</span></h3>
+              <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:96%">★★★★★</span></span><span class="score">4.8</span><span class="cnt">谷歌评分 · 3,000+ 条</span></div>
+              <div class="verdicts">
+                <span class="v ok">徒步 · 极佳</span><span class="v ok">骑行 · 可以</span><span class="v mid">烧烤 · 指定区炭炉</span>
+              </div>
+              <p class="desc">26 英里长的 barrier island：灯塔、300 年的沉没森林、纽约州唯一的联邦荒野区。中段景点只能坐渡轮，是全长岛最像「度假」的国家公园。</p>
+              <div class="foot"><a class="btn btn-main" href="#fire-island">看详细介绍</a>
+              <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Fire%20Island%20National%20Seashore%2C%20Ocean%20Beach%2C%20NY">导航</a></div>
+            </div>
+          </article>
+
+          <!-- Sagamore Hill -->
+          <article class="card" data-tags="hike history">
+            <div class="ph"><img src="images/img11.jpg" alt="萨加莫尔山罗斯福故居，蓝灰色木瓦外墙的大宅" loading="lazy" />
+              <span class="county">拿骚县 · Oyster Bay</span><span class="pick">评分最高</span></div>
+            <div class="body">
+              <h3>萨加莫尔山国家历史遗址<span class="en">Sagamore Hill National Historic Site</span></h3>
+              <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:98%">★★★★★</span></span><span class="score">4.9</span><span class="cnt">谷歌评分 · 327 条</span></div>
+              <div class="verdicts">
+                <span class="v ok">徒步 · 短环线</span><span class="v no">骑行 · 基本不行</span><span class="v no">烧烤 · 无炉子</span>
+              </div>
+              <p class="desc">第 26 任总统西奥多·罗斯福的家和「夏日白宫」。23 间房原样保存，园区免费；再走 0.7 英里小径到海湾边的小海滩。离法拉盛只有 45 分钟车程。</p>
+              <div class="foot"><a class="btn btn-main" href="#sagamore">看详细介绍</a>
+              <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Sagamore%20Hill%20National%20Historic%20Site%2C%2020%20Sagamore%20Hill%20Rd%2C%20Oyster%20Bay%2C%20NY">导航</a></div>
+            </div>
+          </article>
+
+          <!-- Jamaica Bay Wildlife Refuge -->
+          <article class="card" data-tags="hike bird transit">
+            <div class="ph"><img src="images/img12.jpg" alt="牙买加湾野生动物保护区的碎石步道，两旁绿树成荫" loading="lazy" />
+              <span class="county">皇后区 · Queens</span><span class="pick">观鸟天堂</span></div>
+            <div class="body">
+              <h3>牙买加湾野生动物保护区<span class="en">Jamaica Bay Wildlife Refuge · Gateway</span></h3>
+              <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:92%">★★★★★</span></span><span class="score">4.6</span><span class="cnt">谷歌评分 · 1,700+ 条</span></div>
+              <div class="verdicts">
+                <span class="v ok">徒步 · 平坦好走</span><span class="v no">骑行 · 步道禁骑</span><span class="v no">烧烤 · 无炉子</span>
+              </div>
+              <p class="desc">大西洋候鸟迁徙线上的关键驿站，记录过 325 种以上的鸟。A 线地铁直达再走 10 分钟，是全纽约市最容易抵达的「野外」。</p>
+              <div class="foot"><a class="btn btn-main" href="#jamaica-bay">看详细介绍</a>
+              <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Jamaica%20Bay%20Wildlife%20Refuge%2C%20175-10%20Cross%20Bay%20Blvd%2C%20Queens%2C%20NY">导航</a></div>
+            </div>
+          </article>
+
+          <!-- Floyd Bennett Field -->
+          <article class="card" data-tags="hike bike history bird">
+            <div class="ph"><img src="images/img13.webp" alt="弗洛伊德·贝内特机场一号机库，写着国家公园管理局字样" loading="lazy" />
+              <span class="county">布鲁克林 · Brooklyn</span><span class="pick">骑行首选</span></div>
+            <div class="body">
+              <h3>弗洛伊德·贝内特机场<span class="en">Floyd Bennett Field · Gateway</span></h3>
+              <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:84%">★★★★★</span></span><span class="score">4.2</span><span class="cnt">谷歌评分 · 313 条</span></div>
+              <div class="verdicts">
+                <span class="v ok">徒步 · 开阔</span><span class="v ok">骑行 · 极佳</span><span class="v mid">烧烤 · 野餐区</span>
+              </div>
+              <p class="desc">纽约市第一座市立机场（1931 年），如今在老跑道上骑车、看修复中的古董飞机。1,300 英亩，地广人稀——「那里只有空间」。</p>
+              <div class="foot"><a class="btn btn-main" href="#floyd-bennett">看详细介绍</a>
+              <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Floyd%20Bennett%20Field%2C%203159%20Flatbush%20Ave%2C%20Brooklyn%2C%20NY">导航</a></div>
+            </div>
+          </article>
+
+          <!-- Canarsie Pier -->
+          <article class="card" data-tags="bbq transit">
+            <div class="ph"><img src="images/img14.jpg" alt="卡纳西码头的凉亭与海滨步道，人们在栏杆边钓鱼" loading="lazy" />
+              <span class="county">布鲁克林 · Brooklyn</span><span class="pick">烧烤第一名</span></div>
+            <div class="body">
+              <h3>卡纳西码头<span class="en">Canarsie Pier · Gateway</span></h3>
+              <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:84%">★★★★★</span></span><span class="score">4.2</span><span class="cnt">谷歌评分 · 264 条</span></div>
+              <div class="verdicts">
+                <span class="v mid">徒步 · 短步道</span><span class="v mid">骑行 · 附近绿道</span><span class="v ok">烧烤 · 免费炉子免许可</span>
+              </div>
+              <p class="desc">全长岛 NPS 里最适合家庭烤肉的地方：几十张桌子配现成烤炉，免费、不用申请许可，先到先得。还能钓鱼、划皮划艇。</p>
+              <div class="foot"><a class="btn btn-main" href="#canarsie">看详细介绍</a>
+              <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Canarsie%20Pier%2C%20Canarsie%20Veterans%20Circle%2C%20Brooklyn%2C%20NY">导航</a></div>
+            </div>
+          </article>
+
+          <!-- Jacob Riis -->
+          <article class="card" data-tags="swim bike transit bbq">
+            <div class="ph"><img src="images/img15.webp" alt="雅各布·里斯公园 1932 年的装饰艺术风格浴场建筑" loading="lazy" />
+              <span class="county">皇后区 · Rockaway</span><span class="pick">市内海滩首选</span></div>
+            <div class="body">
+              <h3>雅各布·里斯公园<span class="en">Jacob Riis Park · Gateway</span></h3>
+              <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:94%">★★★★★</span></span><span class="score">4.7</span><span class="cnt">谷歌评分</span></div>
+              <div class="verdicts">
+                <span class="v mid">徒步 · 海滩散步</span><span class="v ok">骑行 · 木板路车道</span><span class="v mid">烧烤 · 仅野餐桌</span>
+              </div>
+              <p class="desc">1 英里大西洋泳滩 + 地标级的 1932 年装饰艺术浴场。比 Coney Island 清净，地铁转 Q35 巴士能到。注意：2026 年只有 2 号、5 号海湾有救生员。</p>
+              <div class="foot"><a class="btn btn-main" href="#riis">看详细介绍</a>
+              <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Jacob%20Riis%20Park%2C%20167-02%20Rockaway%20Beach%20Blvd%2C%20Queens%2C%20NY">导航</a></div>
+            </div>
+          </article>
+
+          <!-- Fort Tilden -->
+          <article class="card" data-tags="hike bike bbq history">
+            <div class="ph"><img src="images/img16.webp" alt="蒂尔登堡海滩，旧木桩立在浪花与沙滩之间" loading="lazy" />
+              <span class="county">皇后区 · Rockaway</span><span class="pick">隐藏宝地</span></div>
+            <div class="body">
+              <h3>蒂尔登堡<span class="en">Fort Tilden · Gateway</span></h3>
+              <div class="rate"><span class="score" style="font-size:14.5px">暂无公开评分</span><span class="cnt">游客口碑：野趣十足的宝藏地</span></div>
+              <div class="verdicts">
+                <span class="v ok">徒步 · 沙丘野径</span><span class="v ok">骑行 · 园内道路</span><span class="v mid">烧烤 · 凉亭需预约</span>
+              </div>
+              <p class="desc">一战到冷战的海防要塞：炮台观景台能同时看牙买加湾、纽约港和曼哈顿天际线。没有救生员、禁止游泳，胜在清净野趣，常和里斯公园连着玩。</p>
+              <div class="foot"><a class="btn btn-main" href="#tilden">看详细介绍</a>
+              <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Fort%20Tilden%2C%20Center%20Rd%2C%20Breezy%20Point%2C%20Queens%2C%20NY">导航</a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= COMPARE TABLE ================= -->
+      <section id="compare">
+        <div class="sec-head"><span class="no">02</span><h2>一张表看全</h2></div>
+        <p class="sec-lede">所有地点<b>入园免费</b>。收费的只有个别项目：火岛灯塔登塔、萨加莫尔山故居导览、里斯公园夏季海滩停车、去火岛的渡轮——细节在各公园条目里。</p>
+        <table class="cmp">
+          <thead><tr><th>地点</th><th>徒步</th><th>骑行</th><th>烧烤</th><th>从法拉盛出发</th><th>评分</th></tr></thead>
+          <tbody>
+            <tr><td>火岛国家海岸</td>
+              <td data-l="徒步"><span class="s-ok">极佳</span> 沉没森林栈道、荒野区</td>
+              <td data-l="骑行"><span class="s-ok">可以</span> 海滩与沙路，栈道禁骑</td>
+              <td data-l="烧烤"><span class="s-mid">受限</span> 指定野餐区炭炉，海滩禁火</td>
+              <td data-l="交通">开车 1–1.5 小时；或 LIRR + 渡轮</td>
+              <td data-l="评分">4.8</td></tr>
+            <tr><td>萨加莫尔山</td>
+              <td data-l="徒步"><span class="s-ok">好</span> 0.7 英里自然小径</td>
+              <td data-l="骑行"><span class="s-no">基本不行</span> 仅停车场与进园路</td>
+              <td data-l="烧烤"><span class="s-no">不行</span> 有野餐桌，无炉子</td>
+              <td data-l="交通">开车 45–60 分钟最方便</td>
+              <td data-l="评分">4.9</td></tr>
+            <tr><td>牙买加湾保护区</td>
+              <td data-l="徒步"><span class="s-ok">极佳</span> 西池环线 1.5 英里</td>
+              <td data-l="骑行"><span class="s-no">不行</span> 步道禁止骑车</td>
+              <td data-l="烧烤"><span class="s-no">不行</span> 小野餐区，无炉子</td>
+              <td data-l="交通">开车 25–30 分钟；A 线地铁可达</td>
+              <td data-l="评分">4.6</td></tr>
+            <tr><td>弗洛伊德·贝内特机场</td>
+              <td data-l="徒步"><span class="s-ok">好</span> 草原与北 40 区步道</td>
+              <td data-l="骑行"><span class="s-ok">极佳</span> 老跑道 + 环湾绿道</td>
+              <td data-l="烧烤"><span class="s-mid">受限</span> 有野餐区，按园区规则用炭炉</td>
+              <td data-l="交通">开车 30–40 分钟，公交不便</td>
+              <td data-l="评分">4.2</td></tr>
+            <tr><td>卡纳西码头</td>
+              <td data-l="徒步"><span class="s-mid">一般</span> 码头与滨水步道</td>
+              <td data-l="骑行"><span class="s-mid">附近</span> 环湾绿道经过</td>
+              <td data-l="烧烤"><span class="s-ok">极佳</span> 免费烤炉、免许可</td>
+              <td data-l="交通">开车 25–30 分钟；L 线转 B42 巴士</td>
+              <td data-l="评分">4.2</td></tr>
+            <tr><td>雅各布·里斯公园</td>
+              <td data-l="徒步"><span class="s-mid">一般</span> 海滩与木板路散步</td>
+              <td data-l="骑行"><span class="s-ok">可以</span> 木板路双向车道</td>
+              <td data-l="烧烤"><span class="s-mid">受限</span> 有野餐桌，海滩禁炉</td>
+              <td data-l="交通">开车 30–40 分钟；地铁转 Q35 可达</td>
+              <td data-l="评分">4.7</td></tr>
+            <tr><td>蒂尔登堡</td>
+              <td data-l="徒步"><span class="s-ok">好</span> 沙丘、森林、炮台</td>
+              <td data-l="骑行"><span class="s-ok">可以</span> 园内道路</td>
+              <td data-l="烧烤"><span class="s-mid">需预约</span> 野餐凉亭带炭炉，recreation.gov 预订</td>
+              <td data-l="交通">与里斯公园同路；Q35 巴士可达</td>
+              <td data-l="评分">—</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ================= FIRE ISLAND ================= -->
+      <section id="fire-island">
+        <div class="sec-head"><span class="no">03</span><h2>逐个细看</h2></div>
+        <article class="park">
+          <div class="banner">
+            <img src="images/img1.jpg" alt="火岛灯塔全景：黑白相间的塔身、红顶守塔人小屋与芦苇荡" />
+            <div class="cap">
+              <p class="en">Fire Island National Seashore · Est. 1964</p>
+              <h3>火岛国家海岸</h3>
+              <div class="meta"><span>萨福克县</span><span>约 26 英里长的海岛</span><span>入园免费</span><span>电话 631-687-4750</span></div>
+            </div>
+          </div>
+          <div class="content">
+            <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:96%">★★★★★</span></span><span class="score">4.8 / 5</span><span class="cnt">谷歌评分 · 3,000+ 条评价</span></div>
+            <div class="verdicts" style="margin-top:10px">
+              <span class="v ok">徒步 · 极佳</span><span class="v ok">骑行 · 海滩与沙路可骑</span><span class="v mid">烧烤 · 指定野餐区炭炉</span><span class="v mid">交通 · 开车或 LIRR+渡轮</span>
+            </div>
+            <p class="lead" style="margin-top:14px">火岛是一条细长的沙洲岛，隔着大南湾（Great South Bay）与长岛本岛相望。岛上没有贯通公路，中段的国家公园景点只能坐渡轮或私船到达——这份「麻烦」恰恰换来了长岛最干净的海滩和最完整的自然生态。</p>
+
+            <div class="duo">
+              <figure><img src="images/img0.jpg" alt="沉没森林的木栈道穿过浓密的原始滨海森林" loading="lazy" />
+                <figcaption>沉没森林（Sunken Forest）栈道——300 年树龄的原始滨海林，全球罕见</figcaption></figure>
+              <figure><img src="images/img10.jpg" alt="航拍火岛：狭长的沙洲一侧是大西洋海滩，另一侧是海湾湿地" loading="lazy" />
+                <figcaption>航拍火岛：左边大西洋，右边大南湾，中间是沙丘与湿地</figcaption></figure>
+            </div>
+
+            <div class="cols">
+              <div class="block">
+                <h4><span class="dot"></span>徒步与玩法</h4>
+                <ul>
+                  <li><b>沉没森林自然步道</b>（水手港 Sailors Haven）：约 1.5–1.6 英里环线，一半铺装路一半木栈道，平坦好走，约 1 小时走完，沿途 35 处解说牌；栈道对轮椅友好。只能坐渡轮到达。</li>
+                  <li><b>守望山（Watch Hill）</b>：约 2 英里栈道步道，并通往 <b>Otis Pike 高沙丘荒野区</b>——7 英里未开发的原始海岛，是纽约州唯一的联邦指定荒野区，可凭许可野营。</li>
+                  <li><b>灯塔周边</b>：灯塔 + 自然步道约 2 小时游览量。</li>
+                  <li><b>海滩散步</b>：几十英里大西洋海滩随便走，但<b>必须走沙丘通道口，翻越沙丘违法</b>。</li>
+                  <li><b>威廉·弗洛伊德庄园</b>（本岛 Mastic Beach）：《独立宣言》签署人故居，庭院 5 月 1 日–11 月 28 日开放；老宅目前<b>装修关闭</b>，仅冬季有活动。</li>
+                </ul>
+              </div>
+              <div class="block">
+                <h4><span class="dot"></span>骑行规则</h4>
+                <p>可以在<b>园内公路、停车场、全部大西洋海滩、灯塔区的 Burma Road 沙土路</b>骑行；<b>所有木栈道、码头区和荒野区禁止骑车</b>。沙路松软，最好用胖胎车。渡轮带车可能另收费或要走货运，出发前问清；相邻的 Robert Moses 州立公园公路禁骑。</p>
+                <h4 style="margin-top:16px"><span class="dot"></span>烧烤规则</h4>
+                <p>只许在<b>指定野餐区的炉子里烧炭</b>（如水手港有野餐桌和烤炉）或守望山营地内；<b>海滩、船上、码头栈道、野餐桌上全部禁火</b>。野餐/露营可用丙烷等封闭燃料炉。炭灰必须用水浇透，<b>不许埋沙</b>。普通野餐不用申请许可，大型活动要许可。注意：燃料不能带上渡轮，要在岛上杂货店买。</p>
+              </div>
+            </div>
+
+            <div class="facts">
+              <div class="fact"><div class="k">地址</div><div class="val">Ocean Beach, NY 11770<small>（总部：120 Laurel St, Patchogue）</small></div></div>
+              <div class="fact"><div class="k">费用</div><div class="val">入园免费<small>；灯塔登塔成人 $10、老人/退伍军人/12 岁以下 $5，现役军人免费</small></div></div>
+              <div class="fact"><div class="k">开放</div><div class="val">灯塔每天 10:00–16:00<small>（6/30–劳工节到 17:00）；水手港/守望山游客中心仅 5 月中–10 月中开放</small></div></div>
+              <div class="fact"><div class="k">停车</div><div class="val">NPS 无停车场<small>；西端停 Robert Moses 州立公园 5 号场（州立收费，约 $8 起、夏季更高，2026 年价格未核实）；东端停 Smith Point 县立公园</small></div></div>
+            </div>
+
+            <div class="block">
+              <h4><span class="dot"></span>从法拉盛怎么去</h4>
+              <p><b>开车</b>约 1–1.5 小时：去灯塔走 Robert Moses Causeway 到 Robert Moses 州立公园 5 号停车场；去东端（荒野游客中心）走 Sunrise Hwy 转 William Floyd Pkwy 到 Smith Point。<b>公共交通</b>：LIRR 蒙托克线到 <b>Bay Shore</b>（渡轮去西段）、<b>Sayville</b>（Sayville Ferry 去水手港/沉没森林）、<b>Patchogue</b>（Davis Park Ferry 去守望山，码头离车站步行可达）。渡轮 7–8 月班次全，春秋季减少，冬季几乎停航；单程约 $6.5–7（价格较旧，出行前到渡轮公司官网确认）。NPS 的渡轮景点只在 <b>5 月中–10 月中</b>开放。</p>
+            </div>
+
+            <div class="warn"><b>提醒：</b>夏季蚊虫和蜱虫多（5–9 月），带防虫喷雾；周末渡轮和海滩人多。救生员海滩在守望山和水手港，6 月底–劳工节。最佳季节：夏天游泳，夏末秋初散步人少、沉没森林有秋色。</div>
+
+            <div class="links">
+              <a class="nav-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Fire%20Island%20National%20Seashore%2C%20Ocean%20Beach%2C%20NY">Google 地图导航</a>
+              <a class="site-btn" target="_blank" rel="noopener" href="https://www.nps.gov/fiis">NPS 官网 nps.gov/fiis</a>
+              <a class="site-btn" target="_blank" rel="noopener" href="https://www.mta.info/destinations/beaches/fire-island">MTA 火岛出行指南</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================= SAGAMORE HILL ================= -->
+      <section id="sagamore">
+        <article class="park">
+          <div class="banner">
+            <img src="images/img11.jpg" alt="罗斯福故居正面：石基、红砖与蓝灰木瓦外墙，门前大树与国旗" loading="lazy" />
+            <div class="cap">
+              <p class="en">Sagamore Hill National Historic Site</p>
+              <h3>萨加莫尔山国家历史遗址</h3>
+              <div class="meta"><span>拿骚县 Oyster Bay</span><span>罗斯福总统故居 · 83 英亩</span><span>园区免费</span><span>电话 516-922-4788</span></div>
+            </div>
+          </div>
+          <div class="content">
+            <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:98%">★★★★★</span></span><span class="score">4.9 / 5</span><span class="cnt">谷歌评分 · 327 条评价——全长岛 NPS 最高分</span></div>
+            <div class="verdicts" style="margin-top:10px">
+              <span class="v ok">徒步 · 0.7 英里小径到海湾</span><span class="v no">骑行 · 仅停车场与进园路</span><span class="v no">烧烤 · 无炉子，可自带野餐</span><span class="v mid">交通 · 开车最方便</span>
+            </div>
+            <p class="lead" style="margin-top:14px">西奥多·罗斯福（老罗斯福）1885 年住到 1919 年去世的家，1901–1909 年当总统时这里就是「夏日白宫」。评价里最常出现的一句：<b>「NPS 保存得最好的总统故居之一」</b>——23 间房全是原物：猎物标本、他的私人图书馆、办公桌上的东西都还在。</p>
+
+            <div class="cols">
+              <div class="block">
+                <h4><span class="dot"></span>徒步与玩法</h4>
+                <ul>
+                  <li><b>故居导览（核心项目）</b>：只能跟导览团进，约 45 分钟，每半小时一团（周四–周日 10:00–16:00）。<b>必须提前在 recreation.gov 预订，现场不卖票</b>，票很抢手；少量当日/次日票每天 9:30 放出。</li>
+                  <li><b>自然小径</b>：0.7 英里环线，穿过橡树-鹅掌楸林，下到盐沼和 Cold Spring Harbor 的小海滩（鳗鱼溪 Eel Creek）。有陡坡；海滩<b>只能看，不许游泳、野餐、撑伞</b>。满月/新月大潮时小径可能淹水，先查潮汐表。可以带拴绳的狗。</li>
+                  <li><b>老果园博物馆</b>（罗斯福长子故居）：免费，周四 13:00–16:30、周五–周日 12:00–16:30。</li>
+                  <li>园区免费导览（步行）：周五–周日 10:30。草地上常能看到鹿和野火鸡。</li>
+                </ul>
+              </div>
+              <div class="block">
+                <h4><span class="dot"></span>骑行与烧烤</h4>
+                <p><b>骑行基本不行</b>：只许在主停车场和老果园进园路上骑，自然小径、海滩、草地都禁骑；园区内没有租车点。<b>烧烤不行</b>：停车场入口旁有约 7 张带遮阳棚的野餐桌（先到先得），没有炉子，自己带吃的来——园内不卖食物，只有博物馆和野餐区有饮水机。离故居 100 英尺内和海滩上禁止野餐。小型团体活动要申请特别许可（516-922-4788）。</p>
+                <h4 style="margin-top:16px"><span class="dot"></span>从法拉盛怎么去</h4>
+                <p><b>开车最省心</b>（25–30 英里，45–60 分钟）：Northern State Pkwy 35N 出口或 LIE 41N 出口，转 Route 106 北行约 6 英里到 Oyster Bay，再沿 Cove Rd、Cove Neck Rd 到 Sagamore Hill Rd。停车场免费且宽敞。<b>火车</b>：LIRR 到 Oyster Bay 站（离园 3 英里，班次少）或 Syosset 站（6 英里，班次多），再打车约 10 分钟。NPS 特别提醒：从 Oyster Bay 站步行 3 英里路窄无行人道、车多，不推荐，全程也没有卖吃喝的。</p>
+              </div>
+            </div>
+
+            <div class="facts">
+              <div class="fact"><div class="k">地址</div><div class="val">20 Sagamore Hill Rd, Oyster Bay, NY 11771<small>（GPS 建议输 12 Sagamore Hill Road）</small></div></div>
+              <div class="fact"><div class="k">费用</div><div class="val">园区免费<small>；故居导览成人 $15、18 岁以下 $1、62 岁以上 $7.50、现役军人/退伍军人 $7.50；每票另收 $1 服务费</small></div></div>
+              <div class="fact"><div class="k">开放</div><div class="val">园区每天日出–日落后 30 分钟<small>，全年开放；感恩节、圣诞节、元旦关闭</small></div></div>
+              <div class="fact"><div class="k">预订</div><div class="val">recreation.gov<small> 或电话 877-444-6777——热门，务必提前订</small></div></div>
+            </div>
+
+            <div class="warn"><b>提醒：</b>最大的差评点就是「故居票卖光了」——想进屋至少提前几天订票。最佳季节：春天花开、秋天海湾光线好；冬天最清净。注意毒藤和蜱虫，走小径别离开路面。</div>
+
+            <div class="links">
+              <a class="nav-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Sagamore%20Hill%20National%20Historic%20Site%2C%2020%20Sagamore%20Hill%20Rd%2C%20Oyster%20Bay%2C%20NY">Google 地图导航</a>
+              <a class="site-btn" target="_blank" rel="noopener" href="https://www.nps.gov/sahi">NPS 官网 nps.gov/sahi</a>
+              <a class="site-btn" target="_blank" rel="noopener" href="https://www.recreation.gov/ticket/251573/ticket/179">故居导览订票</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================= JAMAICA BAY WR ================= -->
+      <section id="jamaica-bay">
+        <article class="park">
+          <div class="banner">
+            <img src="images/img12.jpg" alt="西池环线碎石步道，两侧是茂密的灌木与林地" loading="lazy" />
+            <div class="cap">
+              <p class="en">Jamaica Bay Wildlife Refuge · Gateway NRA</p>
+              <h3>牙买加湾野生动物保护区</h3>
+              <div class="meta"><span>皇后区 Broad Channel</span><span>12,600+ 英亩湿地</span><span>免费 · 免费停车</span><span>电话 718-318-4340</span></div>
+            </div>
+          </div>
+          <div class="content">
+            <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:92%">★★★★★</span></span><span class="score">4.6 / 5</span><span class="cnt">谷歌评分 · 1,700+ 条；TripAdvisor 4.5</span></div>
+            <div class="verdicts" style="margin-top:10px">
+              <span class="v ok">徒步 · 平坦环线</span><span class="v no">骑行 · 步道禁骑</span><span class="v no">烧烤 · 无炉子</span><span class="v ok">交通 · A 线地铁可达</span>
+            </div>
+            <p class="lead" style="margin-top:14px">它属于门户国家休闲区（Gateway NRA），却是 NPS 系统里<b>唯一一个挂名「野生动物保护区」</b>的地方（这类保护区通常归渔业野生动物管理局管）。盐沼、淡水池、林地拼在一起，25 年里记录到 <b>325 种以上的鸟</b>，是美国东北最大的鸟类栖息地之一、大西洋迁徙线（Atlantic Flyway）的关键一站。</p>
+
+            <div class="cols">
+              <div class="block">
+                <h4><span class="dot"></span>徒步与观鸟</h4>
+                <ul>
+                  <li><b>西池环线（West Pond Loop）</b>：约 1.5 英里，宽阔平坦的碎石路，很好走，沿路有观鸟棚。白鹭、苍鹭、鱼鹰常见，运气好能看到白头海雕和游隼。</li>
+                  <li><b>东池（East Pond）</b>短步道：迁徙季（7 月底–9 月初）滨鸟最集中，摄影爱好者的主场。</li>
+                  <li>另有 60 多种蝴蝶。最佳季节：春秋迁徙季；日落全年都美。</li>
+                  <li>游客中心周五–周一 10:00–16:00，<b>洗手间只在游客中心开放时可用</b>；里面不卖吃的，自带零食，只有饮水机。</li>
+                </ul>
+              </div>
+              <div class="block">
+                <h4><span class="dot"></span>骑行与烧烤</h4>
+                <p><b>保护区步道禁止骑车</b>，停车场有车架；旁边的牙买加湾绿道（Jamaica Bay Greenway）沿 Cross Bay Blvd 经过，可以在绿道上骑。<b>烧烤不行</b>：游客中心外有个小野餐区，没有炉子。另外注意：<b>保护区全境禁止带狗</b>，任何时候都不行。</p>
+                <h4 style="margin-top:16px"><span class="dot"></span>从法拉盛怎么去</h4>
+                <p><b>开车</b>约 25–30 分钟：Belt Pkwy 17S 出口，转 Cross Bay Blvd 向南过 Addabbo 桥即到。<b>地铁</b>：A 线（往 Rockaway 方向）到 <b>Broad Channel</b> 站，沿 Noel Rd 走约 0.75 英里（十来分钟）；或坐 Q21/Q53 巴士。是这 7 个地点里公共交通最方便的一个。</p>
+              </div>
+            </div>
+
+            <div class="facts">
+              <div class="fact"><div class="k">地址</div><div class="val">175-10 Cross Bay Blvd, Broad Channel, Queens, NY 11693</div></div>
+              <div class="fact"><div class="k">费用</div><div class="val">入园免费 · 停车免费</div></div>
+              <div class="fact"><div class="k">开放</div><div class="val">步道与停车场每天 6:00–21:00<small>；游客中心周五–周一 10:00–16:00</small></div></div>
+              <div class="fact"><div class="k">宠物</div><div class="val">禁止带狗<small>（全境、任何时候）</small></div></div>
+            </div>
+
+            <div class="warn"><b>提醒：</b>差评集中在洗手间开放时间短、附近没吃的——出发前备好水和食物。评价里说这里是「纽约市里的野生绿洲」，适合想逃离城市又不想跑远的人。</div>
+
+            <div class="links">
+              <a class="nav-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Jamaica%20Bay%20Wildlife%20Refuge%2C%20175-10%20Cross%20Bay%20Blvd%2C%20Queens%2C%20NY">Google 地图导航</a>
+              <a class="site-btn" target="_blank" rel="noopener" href="https://www.nps.gov/gate/learn/historyculture/jamaica-bay-wildlife-refuge.htm">NPS 保护区页面</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================= FLOYD BENNETT FIELD ================= -->
+      <section id="floyd-bennett">
+        <article class="park">
+          <div class="banner">
+            <img src="images/img13.webp" alt="一号机库正面：NATIONAL PARK SERVICE · FLOYD BENNETT FIELD 大字与整排玻璃门" loading="lazy" />
+            <div class="cap">
+              <p class="en">Floyd Bennett Field · Gateway NRA</p>
+              <h3>弗洛伊德·贝内特机场</h3>
+              <div class="meta"><span>布鲁克林 Flatbush Ave</span><span>纽约市第一座机场 · 1931 年启用</span><span>免费 · 免费停车</span><span>电话 718-338-3799</span></div>
+            </div>
+          </div>
+          <div class="content">
+            <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:84%">★★★★★</span></span><span class="score">4.2 / 5</span><span class="cnt">谷歌评分 · 313 条</span></div>
+            <div class="verdicts" style="margin-top:10px">
+              <span class="v ok">徒步 · 草原步道</span><span class="v ok">骑行 · 极佳，老跑道随便骑</span><span class="v mid">烧烤 · 野餐区按规用炭炉</span><span class="v no">交通 · 强烈建议开车</span>
+            </div>
+            <p class="lead" style="margin-top:14px">1931 年启用的纽约市第一座市立机场，二战时是海军航空站，1972 年起归 NPS。1,300 多英亩的草原、盐沼、潮滩、码头和老机场建筑群——评价里的一句话最传神：<b>「那里除了空间，什么都没有。」</b>适合放空、骑行和航空迷。</p>
+
+            <div class="cols">
+              <div class="block">
+                <h4><span class="dot"></span>骑行（这里的主场）</h4>
+                <p>直接在<b>原混凝土跑道</b>上骑，路面平、视野无边；牙买加湾绿道穿园而过。牙买加湾-Rockaway 公园保护协会常办 5–6 英里的导览骑行。园内<b>没有租车点</b>，自带车；旁边的 Shirley Chisholm 州立公园有免费单车图书馆（那是州立公园，见文末辨别）。</p>
+                <h4 style="margin-top:16px"><span class="dot"></span>徒步与其他玩法</h4>
+                <ul>
+                  <li><b>北 40 区（North 40）</b>自然步道：有淡水池上的观鸟棚。</li>
+                  <li><b>B 机库古董飞机</b>：NPS 志愿者 HARP 修复的历史飞机收藏。</li>
+                  <li><b>Ryan 游客中心</b>：设在老航站楼/塔台里，周末开放，时间不稳定，出发前查 NPS 通告。</li>
+                  <li>还有：皮划艇下水点、Moonbeam 码头（500+ 船位，718-252-8761）、射箭场（年证 $75，2026 年已售罄）、钓鱼区、航模飞行、冬季室内冰场。营地和营地商店目前关闭。</li>
+                </ul>
+              </div>
+              <div class="block">
+                <h4><span class="dot"></span>烧烤</h4>
+                <p>园内有野餐区，按 Gateway 全区规则：<b>只在有炉子的地方用炭炉，海滩上不许生火</b>。园内没有卖吃的，自带食物和水。</p>
+                <h4 style="margin-top:16px"><span class="dot"></span>从法拉盛怎么去</h4>
+                <p><b>开车</b>约 30–40 分钟：Belt Pkwy 11S 出口转 Flatbush Ave 向南，公园入口在 Marine Parkway 桥前最后一个红绿灯处。公共交通很不方便，<b>强烈建议开车</b>。</p>
+              </div>
+            </div>
+
+            <div class="facts">
+              <div class="fact"><div class="k">地址</div><div class="val">3159 Flatbush Ave, Brooklyn, NY 11234</div></div>
+              <div class="fact"><div class="k">费用</div><div class="val">入园免费 · 停车免费<small>（射箭等个别项目另收费）</small></div></div>
+              <div class="fact"><div class="k">开放</div><div class="val">每天 6:00–21:00</div></div>
+              <div class="fact"><div class="k">补给</div><div class="val">园内无餐饮<small>，自带食物和水</small></div></div>
+            </div>
+
+            <div class="warn"><b>提醒：</b>差评主要是位置偏、没吃的。分数不高多半因为「太空旷」——但对骑行和想清净的人，这正是优点。</div>
+
+            <div class="links">
+              <a class="nav-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Floyd%20Bennett%20Field%2C%203159%20Flatbush%20Ave%2C%20Brooklyn%2C%20NY">Google 地图导航</a>
+              <a class="site-btn" target="_blank" rel="noopener" href="https://home.nps.gov/gate/learn/historyculture/floyd-bennett-field.htm">NPS 老机场页面</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================= CANARSIE PIER ================= -->
+      <section id="canarsie">
+        <article class="park">
+          <div class="banner">
+            <img src="images/img14.jpg" alt="卡纳西码头凉亭与滨水步道，远处是牙买加湾水面" loading="lazy" />
+            <div class="cap">
+              <p class="en">Canarsie Pier · Gateway NRA</p>
+              <h3>卡纳西码头</h3>
+              <div class="meta"><span>布鲁克林 Belt Pkwy 13 号出口</span><span>300 多年历史的钓鱼点</span><span>免费 · 免费停车</span></div>
+            </div>
+          </div>
+          <div class="content">
+            <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:84%">★★★★★</span></span><span class="score">4.2 / 5</span><span class="cnt">谷歌评分 · 264 条</span></div>
+            <div class="verdicts" style="margin-top:10px">
+              <span class="v ok">烧烤 · 全篇第一名</span><span class="v mid">徒步 · 码头散步</span><span class="v mid">骑行 · 附近绿道</span><span class="v ok">交通 · L 线转巴士可达</span>
+            </div>
+            <p class="lead" style="margin-top:14px"><b>想在国家公园里烤肉，这里是第一选择。</b>一大片野餐区有几十张桌子和现成的烤炉，<b>免费、不用申请许可、先到先得</b>。这里当钓鱼点已经有 300 多年历史，蓝鱼、比目鱼都有；还有皮划艇下水点、儿童游乐场和洗手间，设施是 Gateway 几个点里最齐的。</p>
+
+            <div class="cols">
+              <div class="block">
+                <h4><span class="dot"></span>烧烤攻略</h4>
+                <ul>
+                  <li>炉子和桌子都在野餐区，<b>先到先得</b>——夏天周末和节假日炉子抢得快，评价里明确说要<b>早点去占位</b>。</li>
+                  <li>不用许可、不用预约，这是它胜过蒂尔登堡（要预约）和火岛（要坐船）的地方。</li>
+                  <li>在桌边低调喝点酒问题不大（NPS 官方对指定野餐区的口径较宽松），但别闹事、收好垃圾。</li>
+                </ul>
+              </div>
+              <div class="block">
+                <h4><span class="dot"></span>其他玩法与交通</h4>
+                <p>钓鱼是这里的另一大主题（蓝鱼、fluke 比目鱼）；皮划艇下水点在园内；牙买加湾绿道在附近，骑车可以顺路。<b>开车</b>从法拉盛约 25–30 分钟，Belt Pkwy 13 号出口即到，停车免费。<b>地铁</b>：L 线到 Rockaway Parkway 站，换 B42 巴士到门口。</p>
+              </div>
+            </div>
+
+            <div class="facts">
+              <div class="fact"><div class="k">地址</div><div class="val">Canarsie Veterans Circle, Brooklyn, NY<small>（Belt Pkwy 13 号出口）</small></div></div>
+              <div class="fact"><div class="k">费用</div><div class="val">入园免费 · 停车免费 · 烤炉免费</div></div>
+              <div class="fact"><div class="k">开放</div><div class="val">每天 6:00–22:00<small>（车辆 8:00–22:00）</small></div></div>
+              <div class="fact"><div class="k">设施</div><div class="val">钓鱼码头 · 洗手间 · 游乐场 · 皮划艇下水点</div></div>
+            </div>
+
+            <div class="warn"><b>提醒：</b>唯一的槽点就是夏天周末人多、炉子手快有手慢无。想全家烤肉又不折腾，这里没有对手。</div>
+
+            <div class="links">
+              <a class="nav-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Canarsie%20Pier%2C%20Canarsie%20Veterans%20Circle%2C%20Brooklyn%2C%20NY">Google 地图导航</a>
+              <a class="site-btn" target="_blank" rel="noopener" href="https://www.nps.gov/gate/learn/historyculture/canarsie-pier.htm">NPS 码头页面</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================= JACOB RIIS ================= -->
+      <section id="riis">
+        <article class="park">
+          <div class="banner">
+            <img src="images/img15.webp" alt="雅各布·里斯公园的装饰艺术浴场：红砖、绿窗与高塔" loading="lazy" />
+            <div class="cap">
+              <p class="en">Jacob Riis Park · Gateway NRA</p>
+              <h3>雅各布·里斯公园</h3>
+              <div class="meta"><span>皇后区 Rockaway</span><span>1932 年装饰艺术浴场 · 1 英里泳滩</span><span>入园免费</span><span>电话 718-318-4300</span></div>
+            </div>
+          </div>
+          <div class="content">
+            <div class="rate"><span class="stars">★★★★★<span class="fill" style="width:94%">★★★★★</span></span><span class="score">4.7 / 5</span><span class="cnt">谷歌评分</span></div>
+            <div class="verdicts" style="margin-top:10px">
+              <span class="v ok">游泳 · 有救生员海滩</span><span class="v ok">骑行 · 木板路专用车道</span><span class="v mid">烧烤 · 有桌无炉</span><span class="v ok">交通 · 地铁转 Q35 可达</span>
+            </div>
+            <p class="lead" style="margin-top:14px">1936–37 年由 Robert Moses 主持建成，地标是 1932 年的装饰艺术（Art Deco）浴场楼。它常被误写成「州立公园」，其实是 NPS 的国家公园。评价普遍夸它<b>比 Coney Island 清净</b>，日落尤其美。（网上若看到「Jacob Riis State Park」的写法，说的也是这里，别被误导。）</p>
+
+            <div class="cols">
+              <div class="block">
+                <h4><span class="dot"></span>海滩实况（2026 年重要）</h4>
+                <ul>
+                  <li>约 1 英里大西洋泳滩。救生员每天 10:00–18:00，<b>仅限阵亡将士纪念日–劳工节</b>，且 2026 年<b>只有 2 号和 5 号海湾（Bay 2、Bay 5）有救生员</b>。</li>
+                  <li><b>1 号、4 号海湾因侵蚀危险已关闭</b>（2024 年起的限制延续）；6–12 号海湾开放进入但无人看护。<b>只在有救生员时下水。</b></li>
+                  <li>园内有野餐区、游乐场、夏季户外淋浴；9 号海湾有 Riis Beach Cooperative 的餐食（夏季）。</li>
+                </ul>
+              </div>
+              <div class="block">
+                <h4><span class="dot"></span>骑行与烧烤</h4>
+                <p>Rockaway 木板路有<b>双向自行车专用道</b>；牙买加湾绿道也在附近。<b>烧烤</b>：有野餐桌、不需要许可，但<b>海滩上禁止烤炉</b>（Gateway 全区规则）；泳滩区禁酒。</p>
+                <h4 style="margin-top:16px"><span class="dot"></span>从法拉盛怎么去</h4>
+                <p><b>开车</b>约 30–40 分钟：Belt Pkwy 11S 出口转 Flatbush Ave，过 Marine Parkway 桥（收费）即到。<b>公交</b>：2/5 号线到 Flatbush Ave/Nostrand 站换 <b>Q35</b>（旺季开进园内）；或 A 线到 Beach 116th 换 Q22/Q35；NYC Ferry 的 Rockaway 航线也是选项。</p>
+              </div>
+            </div>
+
+            <div class="facts">
+              <div class="fact"><div class="k">地址</div><div class="val">167-02 Rockaway Beach Blvd, Queens, NY</div></div>
+              <div class="fact"><div class="k">费用</div><div class="val">入园免费<small>；海滩停车（纪念日周六–劳工节 8:00–18:00）<b>$20/天或 $100/季</b>，超大车 $50/天；只收卡/感应支付，可在 recreation.gov 预购；8:00 前免费</small></div></div>
+              <div class="fact"><div class="k">开放</div><div class="val">每天 6:00–22:00<small>（停车场 22:00 关闭）</small></div></div>
+              <div class="fact"><div class="k">停车</div><div class="val">夏季周末容易满<small>，早去；Senior/Access 通行证半价</small></div></div>
+            </div>
+
+            <div class="warn"><b>提醒：</b>差评集中在夏季周末停车场爆满和繁忙日的垃圾。下水前先确认去的是 2 号或 5 号海湾。</div>
+
+            <div class="links">
+              <a class="nav-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Jacob%20Riis%20Park%2C%20167-02%20Rockaway%20Beach%20Blvd%2C%20Queens%2C%20NY">Google 地图导航</a>
+              <a class="site-btn" target="_blank" rel="noopener" href="https://www.nps.gov/gate/learn/historyculture/jacob-riis-park.htm">NPS 里斯公园页面</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================= FORT TILDEN ================= -->
+      <section id="tilden">
+        <article class="park">
+          <div class="banner">
+            <img src="images/img16.webp" alt="蒂尔登堡海滩：旧木桩从沙滩伸入大西洋浪花" loading="lazy" />
+            <div class="cap">
+              <p class="en">Fort Tilden · Gateway NRA</p>
+              <h3>蒂尔登堡</h3>
+              <div class="meta"><span>皇后区 Rockaway / Breezy Point</span><span>一战—冷战海防要塞 · 国家史迹名录</span><span>免费</span></div>
+            </div>
+          </div>
+          <div class="content">
+            <div class="rate"><span class="score" style="font-size:15px">暂无可靠的公开评分数据</span><span class="cnt">游客口碑一致：清净、野趣、隐藏宝地</span></div>
+            <div class="verdicts" style="margin-top:10px">
+              <span class="v ok">徒步 · 沙丘森林步道</span><span class="v ok">骑行 · 园内道路</span><span class="v mid">烧烤 · 凉亭需预约</span><span class="v mid">交通 · Q35 巴士可达</span>
+            </div>
+            <p class="lead" style="margin-top:14px">从一战用到冷战的海防炮台（还有 Nike 防空导弹发射场旧址），就在里斯公园东边，<b>两处连着玩最划算</b>。登上 Harris 炮台（Battery Harris）的观景台，牙买加湾、纽约港和曼哈顿天际线一并收入眼底。这里没有救生员、<b>禁止游泳</b>，设施只有移动厕所——换来的是 Rockaway 最安静的一段海岸。</p>
+
+            <div class="cols">
+              <div class="block">
+                <h4><span class="dot"></span>徒步与看点</h4>
+                <ul>
+                  <li><b>Harris 炮台观景台</b>：全区制高点，看落日的一流位置。</li>
+                  <li>沙丘、滨海森林、淡水池之间的步道，适合黄昏散步；还有 Nike 导弹发射场旧址、运动场、艺术中心/剧场。</li>
+                  <li>钓鱼：钓鱼通行证 $55/年（2026 年已售罄），钓鱼停车场夜间有特殊规定，去前查清。宠物：3 月 15 日–9 月 15 日海滩禁狗，其他区域须拴绳。</li>
+                </ul>
+              </div>
+              <div class="block">
+                <h4><span class="dot"></span>烧烤：凉亭预约制</h4>
+                <p><b>蒂尔登堡野餐凉亭（Fort Tilden Picnic Pavilion）</b>要在 recreation.gov 预订：2026 年季内特定周六、周日开放（6 月 20 日–9 月 27 日），10:00–18:00 日间使用，最多 75 人，预订 3 月 1 日开放。<b>提供炭炉，禁止木火</b>；指定野餐区可饮酒；禁玻璃容器和气球。和卡纳西码头不同，<b>这里必须有野餐许可/预约</b>，适合大家庭和团体包场。</p>
+                <h4 style="margin-top:16px"><span class="dot"></span>骑行与交通</h4>
+                <p>园内道路可骑行，牙买加湾绿道在附近。交通与里斯公园相同：开车走 Belt Pkwy 11S 出口过 Marine Parkway 桥；公交 2 号线到 Flatbush/Nostrand 换 <b>Q35</b>（蒂尔登堡站），淡季可坐 Q22/Q35 到 Beach 149th St。</p>
+              </div>
+            </div>
+
+            <div class="facts">
+              <div class="fact"><div class="k">地址</div><div class="val">Center Rd, Breezy Point（Rockaway Point Blvd）, Queens, NY</div></div>
+              <div class="fact"><div class="k">费用</div><div class="val">入园免费 · 停车免费<small>（部分内部停车场旺季需钓鱼/停车许可）</small></div></div>
+              <div class="fact"><div class="k">开放</div><div class="val">每天 6:00–21:00</div></div>
+              <div class="fact"><div class="k">游泳</div><div class="val">禁止<small>（无救生员）——想下水去隔壁里斯公园</small></div></div>
+            </div>
+
+            <div class="warn"><b>提醒：</b>设施极简（移动厕所），自带水和食物。钓鱼停车的许可规则容易搞混，夜钓前务必到 NPS 页面确认最新规则。</div>
+
+            <div class="links">
+              <a class="nav-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Fort%20Tilden%2C%20Center%20Rd%2C%20Breezy%20Point%2C%20Queens%2C%20NY">Google 地图导航</a>
+              <a class="site-btn" target="_blank" rel="noopener" href="https://home.nps.gov/gate/learn/historyculture/fort-tilden.htm">NPS 蒂尔登堡页面</a>
+              <a class="site-btn" target="_blank" rel="noopener" href="https://www.recreation.gov/camping/campgrounds/10381054">凉亭预订 recreation.gov</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================= BBQ TOPIC ================= -->
+      <section id="bbq">
+        <div class="sec-head"><span class="no">04</span><h2>烧烤专题：到底哪儿能烤</h2></div>
+        <p class="sec-lede">一句话总则：<b>NPS 的海滩上到处都禁止生火</b>，炭火只许出现在指定野餐区的炉子里。能痛快烤肉的其实只有三个地方：</p>
+        <div class="rank">
+          <div class="item"><div class="num">1</div>
+            <div><h3>卡纳西码头 —— 免费炉子、免许可</h3>
+            <p>几十张桌子配现成烤炉，免费、不用申请，先到先得。停车免费、交通方便、还能钓鱼。家庭聚会首选，夏天周末早点去占炉子。</p></div></div>
+          <div class="item"><div class="num">2</div>
+            <div><h3>火岛 · 水手港 —— 风景最好的烤场</h3>
+            <p>野餐区有桌子和烤炉，旁边就是沉没森林和海滩。代价是要坐渡轮（燃料还不能带上船，要在岛上买），适合「海岛一日游 + 烤肉」的组合。</p></div></div>
+          <div class="item"><div class="num">3</div>
+            <div><h3>蒂尔登堡凉亭 —— 团体包场</h3>
+            <p>带炭炉的凉亭可容 75 人，但必须在 recreation.gov 提前预约（2026 年 6 月 20 日–9 月 27 日的特定周末）。适合教会团契、大家庭这种大场面。</p></div></div>
+          <div class="item"><div class="num">✕</div>
+            <div><h3>这些地方烤不了</h3>
+            <p>萨加莫尔山（只有野餐桌，没炉子）、牙买加湾保护区（小野餐区无炉子）、里斯公园（有桌子但海滩禁炉）、弗洛伊德·贝内特机场（仅野餐区按规使用提供的炭炉，无卖食处）。</p></div></div>
+        </div>
+      </section>
+
+      <!-- ================= CONFUSION ================= -->
+      <section id="confuse">
+        <div class="sec-head"><span class="no">05</span><h2>别跑错：这些是州立公园，不是国家公园</h2></div>
+        <p class="sec-lede">长岛最容易搞混的几个地方——它们都很好玩，但管理方是纽约州，规则、收费、通行证都和 NPS 不一样：</p>
+        <div class="note-box"><h3>Shirley Chisholm 州立公园（布鲁克林）</h3>
+          <p>它就<b>位于 Gateway 国家休闲区的边界之内</b>，NPS 甚至把它列在牙买加湾单元名单里，但实际由<b>纽约州公园局</b>开发运营，是州立公园。有 10 英里步行/骑行道和免费单车图书馆，去弗洛伊德·贝内特机场骑车可以顺路。</p></div>
+        <div class="note-box"><h3>Robert Moses 州立公园（火岛西端）</h3>
+          <p>去 NPS 火岛灯塔<b>必须</b>停在它的 5 号停车场并付州立停车费——公园是州立的，灯塔是 NPS 的，游客最常在这里搞混。</p></div>
+        <div class="note-box"><h3>Jones Beach、Sunken Meadow、Heckscher、Captree 等州立公园</h3>
+          <p>长岛名气最大的 Jones Beach 也是州立公园，不是国家公园。另外，长岛国家野生动物保护区群（如 Wertheim）归<b>美国渔业与野生动物管理局</b>管，也不是 NPS。反过来，雅各布·里斯公园名字有时被写成「州立」，其实是 NPS 的。</p></div>
+      </section>
+
+      <!-- ================= TIPS ================= -->
+      <section id="tips">
+        <div class="sec-head"><span class="no">06</span><h2>出发前须知</h2></div>
+        <div class="note-box"><h3>省钱要点</h3>
+          <p>7 个目的地<b>入园全部免费</b>。真正花钱的只有四处：里斯公园夏季海滩停车 $20/天、火岛灯塔登塔 $10、萨加莫尔山故居导览 $15、去火岛的渡轮（单程约 $6.5–7，此为较旧的价格，出行前到渡轮公司官网确认）。America the Beautiful 年卡在这里基本用不上，别买。</p></div>
+        <div class="note-box"><h3>季节与防虫</h3>
+          <p>火岛渡轮景点只开 5 月中–10 月中；海滩救生员只到劳工节。5–9 月蚊虫、蜱虫活跃，火岛和保护区尤其明显，带防虫喷雾、回家查蜱。萨加莫尔山和沉没森林的秋天最值得专门跑一趟。</p></div>
+        <div class="note-box"><h3>数据时效</h3>
+          <p>本页资料整理于 <b>2026 年 10 月 17 日</b>，来源为 NPS 官网、recreation.gov 与谷歌公开评分（见页脚）。开放时间、票价、救生员海湾、营地价格等会随季节和年份变动——文中标注「未核实」的项目（Robert Moses 停车费、守望山营地价格、渡轮票价）请在出发前到官网再确认一次；各公园的 NPS 页面都有 Alerts（警报）栏，先看一眼不吃亏。</p></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <h3>资料来源（美国国家公园管理局 NPS 等）</h3>
+        <p>本指南内容基于 2026 年 10 月的公开资料整理：各公园 NPS 官方页面、recreation.gov 预订页、MTA 出行指南及谷歌公开评分。价格与开放时间以官网最新公布为准。</p>
+        <div class="srcs">
+          <a target="_blank" rel="noopener" href="https://www.nps.gov/fiis">火岛国家海岸 · nps.gov/fiis</a>
+          <a target="_blank" rel="noopener" href="https://www.nps.gov/sahi">萨加莫尔山 · nps.gov/sahi</a>
+          <a target="_blank" rel="noopener" href="https://www.nps.gov/gate/learn/historyculture/jamaica-bay-wildlife-refuge.htm">牙买加湾野生动物保护区 · NPS</a>
+          <a target="_blank" rel="noopener" href="https://home.nps.gov/gate/learn/historyculture/floyd-bennett-field.htm">弗洛伊德·贝内特机场 · NPS</a>
+          <a target="_blank" rel="noopener" href="https://www.nps.gov/gate/learn/historyculture/canarsie-pier.htm">卡纳西码头 · NPS</a>
+          <a target="_blank" rel="noopener" href="https://www.nps.gov/gate/learn/historyculture/jacob-riis-park.htm">雅各布·里斯公园 · NPS</a>
+          <a target="_blank" rel="noopener" href="https://home.nps.gov/gate/learn/historyculture/fort-tilden.htm">蒂尔登堡 · NPS</a>
+          <a target="_blank" rel="noopener" href="https://www.fireislandlighthouse.org/visit">火岛灯塔协会 · 登塔时间与票价</a>
+        </div>
+        <p style="margin-top:16px">照片：沉没森林栈道、萨加莫尔山故居为 NPS 公开照片；其余为各景点实地拍摄的公开照片。长岛国家公园旅游指南 · 2026 年 10 月整理</p>
+      </div>
+    </footer>
+
+    <script>
+      (function(){
+        var buttons = document.querySelectorAll('.filters button');
+        var cards = document.querySelectorAll('#cardGrid .card');
+        var note = document.getElementById('filterNote');
+        var names = {all:'全部 7 个目的地', hike:'适合徒步的', bike:'适合骑行的', bbq:'能烧烤/野餐的', swim:'能下海游泳的', bird:'适合观鸟的', history:'历史人文类的', transit:'公共交通方便的'};
+        buttons.forEach(function(btn){
+          btn.addEventListener('click', function(){
+            buttons.forEach(function(b){ b.classList.remove('on'); });
+            btn.classList.add('on');
+            var f = btn.getAttribute('data-f');
+            var shown = 0;
+            cards.forEach(function(card){
+              var tags = (card.getAttribute('data-tags') || '').split(' ');
+              var show = (f === 'all') || tags.indexOf(f) !== -1;
+              card.classList.toggle('hide', !show);
+              if (show) shown++;
+            });
+            note.textContent = f === 'all' ? '' : ('已筛出 ' + shown + ' 个' + names[f] + '目的地，详细介绍在下方逐个展开。');
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
