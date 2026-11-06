@@ -189,3 +189,5 @@ footer a{color:#f3cf7d}
 footer h3{color:#fff;font-size:17px;margin:0 0 8px}
 footer p{margin:0 0 8px;max-width:760px}
 footer .fine{opacity:.65;font-size:12.5px;margin-top:16px}
+footer .credit{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.25);font-size:14px;font-weight:700;color:#fff}
+.banner .cap .credit{font-size:12px;color:var(--ink3)}
