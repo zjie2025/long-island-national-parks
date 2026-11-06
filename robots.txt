@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zjie2025.github.io/long-island-national-parks/sitemap.xml
